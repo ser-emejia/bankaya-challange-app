@@ -1,46 +1,44 @@
+import { View } from "react-native";
+
+import React from "react";
+
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 
-import { getPokemonsByTypeQueryOptions } from "@/queries/pokemon";
-import { PopularPokemonType } from "@/types/pokemon";
+import { getAllPokemonsByTypeQueryOptions } from "@/queries/pokemon";
+import { PokemonTypeName } from "@/types/pokemon";
 
-import PokemonCard from "@/components/PokemonCard";
-
-import { FlatList, StyleSheet, View } from "react-native";
+import Loader from "@/components/Loader";
+import PokemonList from "@/components/PokemonList";
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
 
 const PokemonsTypePage = () => {
-  const { type } = useLocalSearchParams<{ type: PopularPokemonType }>();
+  const { type } = useLocalSearchParams<{ type: PokemonTypeName }>();
 
-  const { data: pokemons = [] } = useQuery(getPokemonsByTypeQueryOptions(type));
+  const { data = [], isLoading } = useQuery({
+    ...getAllPokemonsByTypeQueryOptions(type),
+    select: (data) => data.pokemon.map((pokemon) => pokemon.pokemon),
+    refetchOnMount: false,
+    staleTime: 1000 * 60 * 60, // keep data for 1 hour
+  });
+
+  const navigation = useNavigation();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: capitalizeFirstLetter(type),
+    });
+  }, [navigation, type]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        numColumns={3}
-        data={pokemons}
-        keyExtractor={(item) => item.url}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.contentContainer}
-        renderItem={({ item }) => (
-          <View style={{ marginHorizontal: 4 }}>
-            <PokemonCard pokemon={item} type={type} />
-          </View>
-        )}
-      />
+    <View style={{ flex: 1 }}>
+      <PokemonList data={data.map((pokemon) => pokemon)} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    gap: 8,
-    paddingVertical: 16,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default PokemonsTypePage;

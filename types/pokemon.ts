@@ -1,14 +1,30 @@
-import { POPULAR_POKEMON_TYPES } from "@/constants/popular-types";
+import { NamedApiResource } from "./utillity";
 
-export interface GetAllPokemonsResponse {
-  results: PokemonResult[];
-}
-
-export interface PokemonResult {
+export interface Pokemon {
+  base_experience: number;
+  height: number;
+  id: number;
+  is_default: boolean;
+  location_area_encounters: string;
   name: string;
-  url: string;
+  order: number;
+  sprites: PokemonSprites;
+  types: PokemonType[];
+  weight: number;
 }
-export type PokemonType =
+
+export interface PokemonSprites {
+  front_default: string;
+}
+
+export type PokemonResult = NamedApiResource<string>;
+
+export type PokemonType = {
+  slot: number;
+  type: NamedApiResource<PokemonTypeName>;
+};
+
+export type PokemonTypeName =
   | "normal"
   | "fighting"
   | "flying"
@@ -26,13 +42,4 @@ export type PokemonType =
   | "ice"
   | "dragon"
   | "dark"
-  | "fairy"
-  | "unknown"
-  | "shadow";
-
-export type PopularPokemonType = (typeof POPULAR_POKEMON_TYPES)[number];
-
-export interface PokemonTypeResult {
-  name: PokemonType;
-  url: string;
-}
+  | "fairy";

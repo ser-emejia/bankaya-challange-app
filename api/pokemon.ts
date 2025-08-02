@@ -1,44 +1,33 @@
 import axiosInstance from "@/lib/axios";
+
+import { Pokemon, PokemonTypeName } from "@/types/pokemon";
 import {
+  GetAllPokemonsByTypeResponse,
   GetAllPokemonsResponse,
-  PokemonResult,
-  PokemonTypeResult,
-} from "@/types/pokemon";
+} from "@/types/utillity";
 
-export async function getAllPokemons(
-  limit: number = 10,
-  offset: number = 0
-): Promise<GetAllPokemonsResponse> {
-  const { data } = await axiosInstance.get<GetAllPokemonsResponse>("/pokemon", {
-    params: {
-      limit,
-      offset,
-    },
-  });
+const ALL_POKEMONS_COUNT = 48;
 
-  return data;
-}
-
-export async function getPokemon(id: string) {
-  const { data } = await axiosInstance.get(`/pokemon/${id}`);
-
-  return data;
-}
-
-export async function getPokemonsByType(
-  type: string
-): Promise<PokemonResult[]> {
-  const { data } = await axiosInstance.get<{
-    pokemon: { pokemon: PokemonResult }[];
-  }>(`/type/${type}`);
-
-  return data ? data.pokemon.map((p) => p.pokemon) : ([] as PokemonResult[]);
-}
-
-export async function getAllPokemonsTypes(): Promise<PokemonTypeResult[]> {
-  const { data } = await axiosInstance.get<{ results: PokemonTypeResult[] }>(
-    "/type"
+export async function getAllPokemons(): Promise<GetAllPokemonsResponse> {
+  const { data } = await axiosInstance.get<GetAllPokemonsResponse>(
+    `/pokemon?limit=${ALL_POKEMONS_COUNT}&offset=0`
   );
 
-  return data ? data.results : [];
+  return data;
+}
+
+export async function getSinglePokemon(url: string): Promise<Pokemon> {
+  const { data } = await axiosInstance.get<Pokemon>(url);
+
+  return data;
+}
+
+export async function getAllPokemonsByType(
+  type: PokemonTypeName
+): Promise<GetAllPokemonsByTypeResponse> {
+  const { data } = await axiosInstance.get<GetAllPokemonsByTypeResponse>(
+    `/type/${type}`
+  );
+
+  return data;
 }

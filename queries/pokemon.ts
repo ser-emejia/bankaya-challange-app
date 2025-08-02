@@ -2,31 +2,25 @@ import { queryOptions } from "@tanstack/react-query";
 
 import {
   getAllPokemons,
-  getAllPokemonsTypes,
-  getPokemon,
-  getPokemonsByType,
+  getAllPokemonsByType,
+  getSinglePokemon,
 } from "@/api/pokemon";
+import { PokemonTypeName } from "@/types/pokemon";
 
-export const getAllPokemonsQueryOptions = (limit: number, offset: number) =>
+export const getAllPokemonsQueryOptions = () =>
   queryOptions({
-    queryKey: ["pokemon", "all", { limit, offset }],
-    queryFn: () => getAllPokemons(limit, offset),
+    queryKey: ["pokemon", "all"],
+    queryFn: () => getAllPokemons(),
   });
 
-export const getPokemonQueryOptions = (name: string) =>
+export const getSinglePokemonQueryOptions = (url: string) =>
   queryOptions({
-    queryKey: ["pokemon", "single", { name }],
-    queryFn: () => getPokemon(name),
+    queryKey: ["pokemon", "single", { url }],
+    queryFn: () => getSinglePokemon(url),
   });
 
-export const getPokemonsByTypeQueryOptions = (type: string) =>
+export const getAllPokemonsByTypeQueryOptions = (type: PokemonTypeName) =>
   queryOptions({
     queryKey: ["pokemon", "type", { type }],
-    queryFn: () => getPokemonsByType(type),
-  });
-
-export const getAllPokemonsTypesQueryOptions = () =>
-  queryOptions({
-    queryKey: ["pokemon", "types"],
-    queryFn: () => getAllPokemonsTypes(),
+    queryFn: () => getAllPokemonsByType(type),
   });
