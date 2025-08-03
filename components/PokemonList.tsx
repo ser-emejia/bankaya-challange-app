@@ -4,10 +4,6 @@ import { FlatList, FlatListProps, StyleSheet } from "react-native";
 import EmptyState from "./EmptyState";
 import PokemonCard from "./PokemonCard";
 
-// interface Props {
-//   pokemons: PokemonResult[];
-// }
-
 type Props = Partial<FlatListProps<PokemonResult>> & {
   data: PokemonResult[];
 };

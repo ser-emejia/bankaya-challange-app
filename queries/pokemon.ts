@@ -13,10 +13,10 @@ export const getAllPokemonsQueryOptions = () =>
     queryFn: () => getAllPokemons(),
   });
 
-export const getSinglePokemonQueryOptions = (url: string) =>
+export const getSinglePokemonQueryOptions = (name: string) =>
   queryOptions({
-    queryKey: ["pokemon", "single", { url }],
-    queryFn: () => getSinglePokemon(url),
+    queryKey: ["pokemon", "single", { name }],
+    queryFn: () => getSinglePokemon(name),
   });
 
 export const getAllPokemonsByTypeQueryOptions = (type: PokemonTypeName) =>

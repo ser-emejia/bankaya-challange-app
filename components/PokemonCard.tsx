@@ -1,71 +1,34 @@
-import { ActivityIndicator, StyleSheet, View, ViewProps } from "react-native";
+import { StyleSheet, View, ViewProps } from "react-native";
 
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "expo-router";
 
-import { POKEMON_TYPE_COLORS } from "@/constants/pokemon-type-colors";
 import theme from "@/constants/theme";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
-import { getSinglePokemonQueryOptions } from "@/queries/pokemon";
 import { PokemonResult } from "@/types/pokemon";
 
-import Text from "@/components/Text";
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import { getPokemonIdFromUrl } from "@/helpers/getPokemonIdFromUrl";
+import { getPokemonImageById } from "@/helpers/getPokemonImageById";
 
 import PokemonImage from "./PokemonImage";
+
+import Text from "@/components/Text";
 
 interface Props extends Pick<ViewProps, "style"> {
   pokemon: PokemonResult;
 }
 
 const PokemonCard = ({ style, pokemon }: Props) => {
-  const { data, isLoading } = useQuery({
-    ...getSinglePokemonQueryOptions(pokemon.url),
-    refetchOnMount: false,
-    staleTime: 1000 * 60 * 60, // keep data for 1 hour
-    select: (data) => ({
-      id: data.id,
-      type: data.types[0].type.name,
-      image: data.sprites.front_default,
-    }),
-  });
-
-  if (isLoading) {
-    return (
-      <View style={[styles.card, style]}>
-        <View style={styles.container}>
-          <ActivityIndicator color={theme.COLORS.neutral800} size="small" />
-        </View>
-      </View>
-    );
-  }
-
-  if (!data) {
-    return (
-      <View style={[styles.card, style]}>
-        <View style={styles.container}>
-          <Text>No Pokemon found</Text>
-        </View>
-      </View>
-    );
-  }
+  const id = getPokemonIdFromUrl(pokemon.url);
+  const image = getPokemonImageById(id);
 
   return (
     <Link href={`/pokemon/${pokemon.name}`}>
       <View style={[styles.card, style]}>
-        <View style={styles.wrapTop}>
-          <View
-            style={[
-              styles.chip,
-              { backgroundColor: POKEMON_TYPE_COLORS[data.type] },
-            ]}
-          >
-            <Text weight="semiBold" color="neutral50">
-              #{data.id}
-            </Text>
-          </View>
-        </View>
+        <Text align="right" weight="semiBold" color="neutral500">
+          #{id}
+        </Text>
         <View style={styles.wrapImage}>
-          <PokemonImage url={data.image} />
+          <PokemonImage url={image} />
         </View>
         <Text
           weight="bold"
@@ -102,11 +65,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
-  },
-  chip: {
-    borderRadius: 100,
-    paddingHorizontal: theme.SPACING.r,
-    paddingVertical: theme.SPACING.xxxs,
   },
   container: {
     flex: 1,

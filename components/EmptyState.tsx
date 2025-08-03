@@ -4,7 +4,7 @@ import Icon, { IconName } from "./Icon";
 import Text from "./Text";
 
 interface Props {
-  icon: IconName;
+  icon?: IconName;
   iconSize?: number;
   title: string;
   description: string;
@@ -15,11 +15,17 @@ const EmptyState = ({ icon, iconSize = 42, title, description }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={[styles.wrapIcon, { width: wrapIconSize, height: wrapIconSize }]}
-      >
-        <Icon name={icon} size={iconSize} color="neutral50" />
-      </View>
+      {icon && (
+        <View
+          style={[
+            styles.wrapIcon,
+            { width: wrapIconSize, height: wrapIconSize },
+          ]}
+        >
+          <Icon name={icon} size={iconSize} color="neutral50" />
+        </View>
+      )}
+
       <Text weight="semiBold" variant="h4">
         {title}
       </Text>

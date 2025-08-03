@@ -1,11 +1,18 @@
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  ActivityIndicatorProps,
+  StyleSheet,
+  View,
+} from "react-native";
 
 import theme from "@/constants/theme";
 
-const Loader = () => {
+type Props = ActivityIndicatorProps;
+
+const Loader = ({ size = "large", color = theme.COLORS.neutral800 }: Props) => {
   return (
     <View style={styles.wrapLoader}>
-      <ActivityIndicator size="large" color={theme.COLORS.neutral800} />
+      <ActivityIndicator size={size} color={color} />
     </View>
   );
 };

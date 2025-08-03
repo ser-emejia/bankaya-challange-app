@@ -16,42 +16,44 @@ const HomePage = () => {
   const router = useRouter();
 
   return (
-    <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={styles.contentContainer}
-    >
+    <View style={{ flex: 1, gap: theme.SPACING.s }}>
       <Pressable onPress={() => router.push("/search")}>
         <View style={styles.searchButton}>
           <Icon name="search" color="neutral400" />
           <Text color="neutral400">Find your favorite Pokemon</Text>
         </View>
       </Pressable>
-      <View style={styles.wrapSymbols}>
-        {POKEMON_TYPES.map((type) => (
-          <Pressable
-            key={type}
-            style={styles.wrapSymbolButton}
-            onPress={() => router.push(`/pokemons/${type}`)}
-          >
-            <View
-              style={[
-                styles.symbolButton,
-                { backgroundColor: POKEMON_TYPE_COLORS[type] },
-              ]}
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.wrapSymbols}>
+          {POKEMON_TYPES.map((type) => (
+            <Pressable
+              key={type}
+              style={styles.wrapSymbolButton}
+              onPress={() => router.push(`/pokemons/${type}`)}
             >
-              <Text variant="medium" weight="semiBold" color="neutral100">
-                {capitalizeFirstLetter(type)}
-              </Text>
-              <PokemonSymbolIcon
-                size={52}
-                name={type}
-                style={styles.symbolIcon}
-              />
-            </View>
-          </Pressable>
-        ))}
-      </View>
-    </ScrollView>
+              <View
+                style={[
+                  styles.symbolButton,
+                  { backgroundColor: POKEMON_TYPE_COLORS[type] },
+                ]}
+              >
+                <Text variant="medium" weight="semiBold" color="neutral100">
+                  {capitalizeFirstLetter(type)}
+                </Text>
+                <PokemonSymbolIcon
+                  size={52}
+                  name={type}
+                  style={styles.symbolIcon}
+                />
+              </View>
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -87,6 +89,7 @@ const styles = StyleSheet.create({
     gap: theme.SPACING.s,
   },
   searchButton: {
+    marginHorizontal: theme.SPACING.s,
     borderWidth: 1,
     borderColor: theme.COLORS.neutral400,
     backgroundColor: theme.COLORS.neutral50,

@@ -1,12 +1,17 @@
 import axiosInstance from "@/lib/axios";
 
-import { Pokemon, PokemonTypeName } from "@/types/pokemon";
+import { formatEvolutionChain } from "@/helpers/formatEvolutionChange";
+
 import {
   GetAllPokemonsByTypeResponse,
   GetAllPokemonsResponse,
 } from "@/types/utillity";
 
-const ALL_POKEMONS_COUNT = 48;
+import { formatDescription } from "@/helpers/formatDescription";
+import { Evolution, FormattedEvolution } from "@/types/evolution";
+import { Pokemon, PokemonTypeName } from "@/types/pokemon";
+
+const ALL_POKEMONS_COUNT = 1302;
 
 export async function getAllPokemons(): Promise<GetAllPokemonsResponse> {
   const { data } = await axiosInstance.get<GetAllPokemonsResponse>(
@@ -16,10 +21,36 @@ export async function getAllPokemons(): Promise<GetAllPokemonsResponse> {
   return data;
 }
 
-export async function getSinglePokemon(url: string): Promise<Pokemon> {
-  const { data } = await axiosInstance.get<Pokemon>(url);
+export async function getSinglePokemon(name: string): Promise<{
+  pokemon: Pokemon & { description: string; evolutions: FormattedEvolution[] };
+}> {
+  const [{ data: pokemonData }, { data: pokemonSpecieData }] =
+    await Promise.all([
+      axiosInstance.get<Pokemon>(`/pokemon/${name}`),
+      axiosInstance.get<{
+        evolution_chain: { url: string };
+        flavor_text_entries: {
+          flavor_text: string;
+          language: { name: string };
+        }[];
+      }>(`/pokemon-species/${name}`),
+    ]);
 
-  return data;
+  const { data: evolutionChainData } = await axiosInstance.get<Evolution>(
+    pokemonSpecieData.evolution_chain.url
+  );
+
+  const description = pokemonSpecieData.flavor_text_entries.find(
+    (entry) => entry.language.name === "en"
+  );
+
+  return {
+    pokemon: {
+      ...pokemonData,
+      description: formatDescription(description?.flavor_text || ""),
+      evolutions: formatEvolutionChain(evolutionChainData.chain),
+    },
+  };
 }
 
 export async function getAllPokemonsByType(

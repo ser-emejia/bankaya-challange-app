@@ -51,7 +51,13 @@ export default function RootLayout() {
             animation: "slide_from_bottom",
           }}
         />
-        <Stack.Screen name="pokemon/[name]" />
+        <Stack.Screen
+          name="pokemon/[name]"
+          options={{
+            headerTransparent: true,
+            headerStyle: { backgroundColor: "transparent" },
+          }}
+        />
         <Stack.Screen name="pokemons/[type]" />
       </Stack>
       <StatusBar style="dark" />

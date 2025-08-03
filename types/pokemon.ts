@@ -8,8 +8,11 @@ export interface Pokemon {
   location_area_encounters: string;
   name: string;
   order: number;
+  species: PokemonSpecie;
   sprites: PokemonSprites;
   types: PokemonType[];
+  stats: PokemonStat[];
+  abilities: PokemonAbility[];
   weight: number;
 }
 
@@ -19,10 +22,22 @@ export interface PokemonSprites {
 
 export type PokemonResult = NamedApiResource<string>;
 
+export interface PokemonStat {
+  base_stat: number;
+  effort: number;
+  stat: NamedApiResource<PokemonStatName>;
+}
+
 export type PokemonType = {
   slot: number;
   type: NamedApiResource<PokemonTypeName>;
 };
+
+export interface PokemonAbility {
+  ability: NamedApiResource<string>;
+}
+
+export type PokemonSpecie = NamedApiResource<string>;
 
 export type PokemonTypeName =
   | "normal"
@@ -43,3 +58,11 @@ export type PokemonTypeName =
   | "dragon"
   | "dark"
   | "fairy";
+
+export type PokemonStatName =
+  | "hp"
+  | "attack"
+  | "defense"
+  | "special-attack"
+  | "special-defense"
+  | "speed";
