@@ -16,7 +16,7 @@ Una aplicación móvil para explorar y buscar información sobre Pokémon, const
 - Tener instalado [**Git**](https://git-scm.com/) para clonar este repositorio
 - Tener [**Node.js**](https://nodejs.org/en/) instalado
 - Un dipositivo iOS o Android con la app de [**Expo GO**](https://expo.dev/go) instalada
-- Un simulador de iOS o un emulador de Android instalado
+- Un simulador de iOS o un emulador de Android instalado en la computadora
 
 ## 🚀 Empezar
 
