@@ -43,7 +43,10 @@ const SearchInput = ({
         keyboardType="default"
         returnKeyType="search"
         selectionColor={theme.COLORS.neutral800}
-        onChangeText={onSearch}
+        onChangeText={(text) => {
+          setSearchTerm(text);
+          onSearch(text);
+        }}
         enablesReturnKeyAutomatically={true}
         placeholder={placeholder}
         cursorColor={theme.COLORS.neutral800}
