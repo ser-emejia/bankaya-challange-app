@@ -16,7 +16,7 @@ const HomePage = () => {
   const router = useRouter();
 
   return (
-    <View style={{ flex: 1, gap: theme.SPACING.s }}>
+    <View style={styles.container}>
       <Pressable onPress={() => router.push("/search")}>
         <View style={styles.searchButton}>
           <Icon name="search" color="neutral400" />
@@ -58,11 +58,16 @@ const HomePage = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    gap: theme.SPACING.s,
+    backgroundColor: theme.BACKGROUND.light,
+    paddingTop: theme.SPACING.s,
+  },
   contentContainer: {
     flexGrow: 1,
     gap: theme.SPACING.m,
     padding: theme.SPACING.s,
-    paddingBottom: theme.SPACING.xxl,
   },
   wrapSymbolButton: {
     width: "48%",

@@ -5,6 +5,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
 import theme from "@/constants/theme";
+import { FavoritesProvider } from "@/provider/FavoritesProvider";
 import ReactQueryProvider from "@/provider/ReactQueryProvider";
 
 export default function RootLayout() {
@@ -27,39 +28,41 @@ export default function RootLayout() {
 
   return (
     <ReactQueryProvider>
-      <Stack
-        screenOptions={{
-          headerBackTitle: "Back",
-          headerShadowVisible: false,
-          headerTintColor: theme.COLORS.neutral800,
-          headerStyle: { backgroundColor: theme.BACKGROUND.light },
-          contentStyle: {
-            backgroundColor: theme.BACKGROUND.light,
-          },
-          headerTitleStyle: {
-            fontFamily: theme.FONT.weight.bold,
-            fontSize: theme.FONT.variant.h3.font_size,
-          },
-        }}
-      >
-        <Stack.Screen name="index" options={{ title: "Pokedex" }} />
-        <Stack.Screen
-          name="search"
-          options={{
-            title: "",
-            headerBackTitle: "Cancel",
-            animation: "slide_from_bottom",
+      <FavoritesProvider>
+        <Stack
+          screenOptions={{
+            headerBackTitle: "Back",
+            headerShadowVisible: false,
+            headerTintColor: theme.COLORS.neutral800,
+            headerStyle: { backgroundColor: theme.BACKGROUND.light },
+            contentStyle: {
+              backgroundColor: theme.BACKGROUND.light,
+            },
+            headerTitleStyle: {
+              fontFamily: theme.FONT.weight.bold,
+              fontSize: theme.FONT.variant.h3.font_size,
+            },
           }}
-        />
-        <Stack.Screen
-          name="pokemon/[name]"
-          options={{
-            headerTransparent: true,
-            headerStyle: { backgroundColor: "transparent" },
-          }}
-        />
-        <Stack.Screen name="pokemons/[type]" />
-      </Stack>
+        >
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="search"
+            options={{
+              title: "",
+              headerBackTitle: "Cancel",
+              animation: "slide_from_bottom",
+            }}
+          />
+          <Stack.Screen
+            name="pokemon/[name]"
+            options={{
+              headerTransparent: true,
+              headerStyle: { backgroundColor: "transparent" },
+            }}
+          />
+          <Stack.Screen name="pokemons/[type]" />
+        </Stack>
+      </FavoritesProvider>
       <StatusBar style="dark" />
     </ReactQueryProvider>
   );

@@ -12,6 +12,7 @@ import { getSinglePokemonQueryOptions } from "@/queries/pokemon";
 
 import { LinearGradient } from "expo-linear-gradient";
 
+import FavoriteIconButton from "@/components/FavoriteIconButton";
 import Loader from "@/components/Loader";
 import PokemonImage from "@/components/PokemonImage";
 import Text from "@/components/Text";
@@ -28,8 +29,8 @@ function PokemonPage() {
 
   const { data, isLoading } = useQuery({
     ...getSinglePokemonQueryOptions(name),
-    refetchOnMount: false,
     retry: false,
+    refetchOnMount: false,
     staleTime: 1000 * 60 * 60, // keep data for 1 hour
   });
 
@@ -38,8 +39,10 @@ function PokemonPage() {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: capitalizeFirstLetter(name),
+      headerRight: () =>
+        data && <FavoriteIconButton id={`${data.pokemon.id}`} name={name} />,
     });
-  }, [navigation, name]);
+  }, [navigation, name, data]);
 
   if (isLoading) {
     return <Loader />;

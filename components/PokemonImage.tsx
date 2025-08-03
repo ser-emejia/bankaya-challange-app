@@ -16,6 +16,7 @@ const PokemonImage = ({ url, style, ...props }: Props) => {
       {...props}
       transition={1000}
       recyclingKey={url}
+      cachePolicy="memory"
       contentFit="contain"
       style={[styles.image, style]}
       placeholder={fallbackImage}

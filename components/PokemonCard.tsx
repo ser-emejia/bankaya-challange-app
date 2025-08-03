@@ -12,6 +12,7 @@ import { getPokemonImageById } from "@/helpers/getPokemonImageById";
 import PokemonImage from "./PokemonImage";
 
 import Text from "@/components/Text";
+import FavoriteIconButton from "./FavoriteIconButton";
 
 interface Props extends Pick<ViewProps, "style"> {
   pokemon: PokemonResult;
@@ -24,9 +25,12 @@ const PokemonCard = ({ style, pokemon }: Props) => {
   return (
     <Link href={`/pokemon/${pokemon.name}`}>
       <View style={[styles.card, style]}>
-        <Text align="right" weight="semiBold" color="neutral500">
-          #{id}
-        </Text>
+        <View style={styles.wrapTop}>
+          <Text align="right" weight="semiBold" color="neutral500">
+            #{id}
+          </Text>
+          <FavoriteIconButton id={id} name={pokemon.name} />
+        </View>
         <View style={styles.wrapImage}>
           <PokemonImage url={image} />
         </View>
@@ -56,7 +60,10 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   wrapTop: {
-    alignItems: "flex-end",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: theme.SPACING.xs,
   },
   wrapImage: {
     width: 100,

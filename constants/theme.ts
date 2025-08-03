@@ -1,7 +1,4 @@
 const palette = {
-  primary: {
-    500: "#fe5656",
-  },
   neutral: {
     50: "#fff",
     100: "#f5f5f5",
@@ -15,6 +12,9 @@ const palette = {
     900: "#171717",
     1000: "#0a0a0a",
   },
+  red: {
+    500: "#fe5656",
+  },
   background: {
     light: "#f9f9f9",
   },
@@ -25,7 +25,7 @@ const theme = {
     light: palette.background["light"],
   },
   COLORS: {
-    primary500: palette.primary[500],
+    red500: palette.red[500],
     neutral50: palette.neutral[50],
     neutral100: palette.neutral[100],
     neutral200: palette.neutral[200],

@@ -9,6 +9,7 @@ Una aplicación móvil para explorar y buscar información sobre Pokémon, const
 - 📊 Detalles de cada Pokémon (stats, evoluciones, etc.)
 - 🎨 Diseño moderno y responsive
 - ⚡ Rendimiento optimizado
+- ♥️ Añadir a favoritos
 
 ## 📚 Requerimientos
 
@@ -46,4 +47,13 @@ En el output, encontrarás la opción para abrir la app en:
 <h1 align="center">
   <img alt="pokemon-details" src=".github/screenshots/s1.gif" width="400" />
   <img alt="search" src=".github/screenshots/s2.gif" width="400" />
+  <img alt="favorites" src=".github/screenshots/s3.gif" width="400" />
+</h1>
+
+# Android Screenshots
+
+<h1 align="center">
+  <img alt="home" src=".github/screenshots/a1.png" width="400" />
+  <img alt="pokemon-details" src=".github/screenshots/a2.png" width="400" />
+  <img alt="search" src=".github/screenshots/a4.png" width="400" />
 </h1>
