@@ -5,11 +5,11 @@ import { PokemonResult } from "@/types/pokemon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface FavoritesContextType {
-  favorites: PokemonResult[];
-  addFavorite: (pokemon: PokemonResult) => void;
-  removeFavorite: (url: string) => void;
-  isFavorite: (url: string) => boolean;
   isLoading: boolean;
+  favorites: PokemonResult[];
+  isFavorite: (url: string) => boolean;
+  removeFavorite: (url: string) => void;
+  addFavorite: (pokemon: PokemonResult) => void;
 }
 
 const STORAGE_KEY = "@pokemon_favorites";
@@ -69,6 +69,7 @@ export const FavoritesProvider = ({
   function isFavorite(url: string) {
     return favorites.some((pokemon) => pokemon.url === url);
   }
+
   return (
     <FavoritesContext.Provider
       value={{ favorites, addFavorite, removeFavorite, isFavorite, isLoading }}

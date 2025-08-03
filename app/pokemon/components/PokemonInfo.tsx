@@ -21,8 +21,8 @@ const PokemonInfo = ({ height, weight }: Props) => {
         </Text>
       </View>
       <View>
-        <Text weight="bold">{height} m</Text>
-        <Text weight="bold">{weight} kg</Text>
+        <Text weight="bold">{height ?? 0} m</Text>
+        <Text weight="bold">{weight ?? 0} kg</Text>
       </View>
     </View>
   );

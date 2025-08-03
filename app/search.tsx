@@ -14,13 +14,13 @@ import Text from "@/components/Text";
 const ITEMS_PER_PAGE = 12;
 
 const SearchPage = () => {
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [page, setPage] = React.useState<number>(1);
+
   const { data = [], isLoading } = useQuery({
     ...getAllPokemonsQueryOptions(),
     select: (data) => (data ? data.results : []),
   });
-
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const [page, setPage] = React.useState<number>(1);
 
   const filteredPokemons = data.filter((pokemon) =>
     pokemon.name.includes(searchTerm.toLowerCase())

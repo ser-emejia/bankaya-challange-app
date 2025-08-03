@@ -7,9 +7,10 @@ interface Props extends ImageProps {
   url: string;
 }
 
+const fallbackImage = require("@/assets/images/wtp.png");
+
 const PokemonImage = ({ url, style, ...props }: Props) => {
   const [hasError, setHasError] = React.useState(false);
-  const fallbackImage = require("@/assets/images/wtp.png");
 
   return (
     <Image

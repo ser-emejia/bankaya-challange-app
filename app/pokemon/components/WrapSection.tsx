@@ -12,7 +12,7 @@ const WrapSection = ({ children, title }: Props) => {
   return (
     <View style={styles.wrapSection}>
       <Text variant="h4" weight="bold">
-        {title}
+        {title ?? "Section"}
       </Text>
       {children}
     </View>

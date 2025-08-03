@@ -29,9 +29,6 @@ function PokemonPage() {
 
   const { data, isLoading } = useQuery({
     ...getSinglePokemonQueryOptions(name),
-    retry: false,
-    refetchOnMount: false,
-    staleTime: 1000 * 60 * 60, // keep data for 1 hour
   });
 
   const navigation = useNavigation();

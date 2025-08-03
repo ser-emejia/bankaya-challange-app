@@ -15,14 +15,12 @@ import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
 const PokemonsTypePage = () => {
   const { type } = useLocalSearchParams<{ type: PokemonTypeName }>();
 
+  const navigation = useNavigation();
+
   const { data = [], isLoading } = useQuery({
     ...getAllPokemonsByTypeQueryOptions(type),
     select: (data) => data.pokemon.map((pokemon) => pokemon.pokemon),
-    refetchOnMount: false,
-    staleTime: 1000 * 60 * 60, // keep data for 1 hour
   });
-
-  const navigation = useNavigation();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({

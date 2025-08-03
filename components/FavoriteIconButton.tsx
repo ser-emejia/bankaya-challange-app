@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native";
 import * as Haptics from "expo-haptics";
 
 import { useFavorites } from "@/hooks/useFavorites";
+
 import Icon from "./Icon";
 
 interface Props {
@@ -18,14 +19,14 @@ const FavoriteIconButton = ({ id, name }: Props) => {
 
   const isFav = isFavorite(url);
 
-  function handleFavorite() {
+  const handleFavorite = React.useCallback(() => {
     if (isFav) {
       removeFavorite(url);
     } else {
       addFavorite({ name, url });
     }
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-  }
+  }, [isFav, removeFavorite, addFavorite, url, name]);
 
   return (
     <TouchableOpacity onPress={handleFavorite}>

@@ -1,3 +1,5 @@
+import React from "react";
+
 import { StyleSheet, View, ViewProps } from "react-native";
 
 import { Link } from "expo-router";
@@ -19,8 +21,12 @@ interface Props extends Pick<ViewProps, "style"> {
 }
 
 const PokemonCard = ({ style, pokemon }: Props) => {
-  const id = getPokemonIdFromUrl(pokemon.url);
-  const image = getPokemonImageById(id);
+  const id = React.useMemo(
+    () => getPokemonIdFromUrl(pokemon.url),
+    [pokemon.url]
+  );
+
+  const image = React.useMemo(() => getPokemonImageById(id), [id]);
 
   return (
     <Link href={`/pokemon/${pokemon.name}`}>

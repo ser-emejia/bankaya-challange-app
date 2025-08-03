@@ -1,8 +1,9 @@
+import React from "react";
+
 import theme from "@/constants/theme";
 import { StyleSheet, View } from "react-native";
 import Icon, { IconName } from "./Icon";
 import Text from "./Text";
-
 interface Props {
   icon?: IconName;
   iconSize?: number;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 const EmptyState = ({ icon, iconSize = 42, title, description }: Props) => {
-  const wrapIconSize = iconSize * 2;
+  const wrapIconSize = React.useMemo(() => iconSize * 2, [iconSize]);
 
   return (
     <View style={styles.container}>

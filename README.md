@@ -9,7 +9,7 @@ Una aplicación móvil para explorar y buscar información sobre Pokémon, const
 - 📊 Detalles de cada Pokémon (stats, evoluciones, etc.)
 - 🎨 Diseño moderno y responsive
 - ⚡ Rendimiento optimizado
-- ♥️ Añadir a favoritos
+- ♥️ Guardar pokemones
 
 ## 📚 Requerimientos
 
